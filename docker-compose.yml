@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  quote-of-the-day:
+    image: quote-of-the-day
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8080:8080
