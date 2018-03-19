@@ -16,6 +16,10 @@ apt:
     - google-chrome-stable
     - google-chrome-beta
 
+env:
+  global:
+    - DOCKERHUB_BUILD: '$ curl -H "Content-Type: application/json" --data '{"docker_tag": "master"}' -X POST https://registry.hub.docker.com/u/jmontagna/quote-of-the-day/trigger/86ed4dd7-3635-47e2-9182-a636d0a3f5bf/'
+
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
@@ -28,3 +32,6 @@ before_script:
 - ng build
 
 script: karma start karma.conf.js --single-run
+
+after_success:
+- "$DOCKERHUB_BUILD"
