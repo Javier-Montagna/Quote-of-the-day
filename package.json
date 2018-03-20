@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod && cd dist/ && http-server",
+    "start": "node dist/app.js",
+    "build": "ng build; cp app.js dist/app.js; node dist/app.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
