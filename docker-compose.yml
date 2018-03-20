@@ -1,10 +1,14 @@
-version: '2.1'
+version: '3.5'
 
 services:
-  quote-of-the-day:
-    image: quote-of-the-day
-    build: .
-    environment:
-      NODE_ENV: production
+
+  something-clever:
+    container_name: something-clever
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
     ports:
-      - 8080:8080
+      - '8080:8080

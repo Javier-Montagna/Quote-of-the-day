@@ -1,10 +1,20 @@
-FROM node:8.9-alpine
-ENV NODE_ENV production
+# base image
+FROM node:9.6.1
+
+# set working directory
+RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install 
-# If you are building your code for production
-# RUN npm install --only=production
-COPY . .
-EXPOSE 8080
-CMD [ "npm", "start" ]
+
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /usr/src/app/package.json
+RUN npm install
+RUN npm install -g @angular/cli@1.7.1 --unsafe
+
+# add app
+COPY . /usr/src/app
+
+# start app
+CMD ng serve --host 0.0.0.0 --port 8080
