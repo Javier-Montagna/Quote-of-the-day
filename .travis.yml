@@ -30,4 +30,5 @@ before_script:
 script: karma start karma.conf.js --single-run
 
 after_success:
+- chmod 777 dockerHubDeploy.sh
 - ./dockerHubDeploy.sh
