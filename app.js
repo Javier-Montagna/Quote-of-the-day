@@ -8,7 +8,7 @@ const HOST = '0.0.0.0';
 
 /****************************** Router ***************************/
 router.get('*', function(req, res){
-    res.sendFile('index.html', { root: __dirname + '/' });
+    res.sendFile('./src/index.html', { root: __dirname + '/' });
 });
 
 /****************************** /Router ***************************/
