@@ -39,16 +39,26 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 
 # Instalando gcloud para comunicarse con Google Cloud
+- if [ ! -d ${HOME}/google-cloud-sdk ]; then
+     curl https://sdk.cloud.google.com | bash;
+  fi
+- tar -xzf credentials.tar.gz
+- mkdir -p lib
+# Here we use the decrypted service account credentials to authenticate the command line tool
 # - ./gcloud-sdk-install.sh
-- gcloud version || true
-- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+# - gcloud version || true
+# - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 # Add gcloud to $PATH
-- source $HOME/google-cloud-sdk/path.bash.inc
-- gcloud version
-- source $HOME/.bashrc
+# - source $HOME/google-cloud-sdk/path.bash.inc
+# - gcloud version
+# - source $HOME/.bashrc
 
 #Configurando GCloud
-- ./gcloud-sdk-configure.sh
+- gcloud components update kubectl
+- gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
+- gcloud config set project $PROJECT_ID
+- gcloud config set compute/zone $ZONE
+# - ./gcloud-sdk-configure.sh
 install: true
 
 before_script:
