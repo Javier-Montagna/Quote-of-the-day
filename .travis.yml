@@ -11,12 +11,12 @@ services:
 env:
     global:
     - PATH=$PATH:$HOME/google-cloud-sdk/bin
-    - PROJECT_ID="quote-of-the-day-prod"
+    - PROJECT_ID="snappy-sunset-198621"
     - ZONE="us-central1-a"
     - IMAGE_NAME=quote-of-the-day:latest
     - FULL_IMAGE_NAME=gcr.io/$PROJECT_ID/$IMAGE_NAME
     - GOOGLE_APPLICATION_CREDENTIALS="${PWD}/quote_of_the_day_fe0bf392a335.json"
-    - CLUSTER_NAME=quote-of-the-day-prod
+    - CLUSTER_NAME="quote-of-the-day-prod"
 
 apt:
   sources:
@@ -64,7 +64,3 @@ after_success:
 # Seleccionamos el cluster y creamos los nodos/pods
 # - ./gcloud-select-cluster.sh $CLUSTER_NAME
 # - ./k8s-run-mysql.sh ''
-# - chmod 777 dockerHubDeploy.sh
-# - ./dockerHubDeploy.sh
-
-# docker build -f Dockerfile --no-cache=true -t gcr.io/quote-of-the-day-prod/quote-of-the-day
