@@ -54,7 +54,7 @@ before_install:
 # - source $HOME/.bashrc
 
 #Configurando GCloud
-- gcloud components update kubectl
+- gcloud components install kubectl
 - gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
 - gcloud config set project $PROJECT_ID
 - gcloud config set compute/zone $ZONE
