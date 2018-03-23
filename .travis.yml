@@ -58,15 +58,13 @@ script:
 
 after_success:
 # Preparacion el container y lo subimos al repositorio privado
-- docker build -f Dockerfile --no-cache=true -t $FULL_IMAGE_NAME
+- docker build --no-cache=true -t $FULL_IMAGE_NAME .
 - gcloud docker -- push $FULL_IMAGE_NAME
-
-# 
-# - ./image-prepare.sh 
-# - ./image-push.sh $FULL_IMAGE_NAME
 
 # Seleccionamos el cluster y creamos los nodos/pods
 # - ./gcloud-select-cluster.sh $CLUSTER_NAME
 # - ./k8s-run-mysql.sh ''
 # - chmod 777 dockerHubDeploy.sh
 # - ./dockerHubDeploy.sh
+
+# docker build -f Dockerfile --no-cache=true -t gcr.io/quote-of-the-day-prod/quote-of-the-day
