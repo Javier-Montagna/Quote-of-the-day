@@ -18,48 +18,16 @@ env:
     - GOOGLE_APPLICATION_CREDENTIALS="${PWD}/quote_of_the_day_fe0bf392a335.json"
     - CLUSTER_NAME=quote-of-the-day-prod
 
-# apt:
-#   sources:
-#     - google-chrome
-#   packages:
-#     - google-chrome-stable
-#     - google-chrome-beta
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
+    - google-chrome-beta
 
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
-
-before_install:
-# Conexion mediante private key
-- openssl aes-256-cbc -K $encrypted_940145a3ff79_key -iv $encrypted_940145a3ff79_iv -in quote_of_the_day_fe0bf392a335.json.enc -out quote_of_the_day_fe0bf392a335.json -d
-
-# Preparando el ambiente para correr los tests con karma
-- export CHROME_BIN=chromium-browser
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-
-# Instalando gcloud para comunicarse con Google Cloud
-- if [ ! -d ${HOME}/google-cloud-sdk ]; then
-     curl https://sdk.cloud.google.com | bash;
-  fi
-# - tar -xzf credentials.tar.gz
-- mkdir -p lib
-# Here we use the decrypted service account credentials to authenticate the command line tool
-# - ./gcloud-sdk-install.sh
-# - gcloud version || true
-# - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
-# Add gcloud to $PATH
-# - source $HOME/google-cloud-sdk/path.bash.inc
-# - gcloud version
-# - source $HOME/.bashrc
-
-#Configurando GCloud
-- gcloud components install kubectl
-- gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
-- gcloud config set project $PROJECT_ID
-- gcloud config set compute/zone $ZONE
-# - ./gcloud-sdk-configure.sh
-install: true
 
 before_script:
 - npm install -g angular-cli
@@ -70,13 +38,57 @@ before_script:
 script: 
 - karma start karma.conf.js --single-run
 
+before_deploy:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+  - gcloud --quiet components update kubectl
+
+# before_install:
+# Conexion mediante private key
+# - openssl aes-256-cbc -K $encrypted_940145a3ff79_key -iv $encrypted_940145a3ff79_iv -in quote_of_the_day_fe0bf392a335.json.enc -out quote_of_the_day_fe0bf392a335.json -d
+
+# Preparando el ambiente para correr los tests con karma
+# - export CHROME_BIN=chromium-browser
+# - export DISPLAY=:99.0
+# - sh -e /etc/init.d/xvfb start
+
+# Instalando gcloud para comunicarse con Google Cloud
+# - if [ ! -d ${HOME}/google-cloud-sdk ]; then
+    #  curl https://sdk.cloud.google.com | bash;
+  # fi
+# - tar -xzf credentials.tar.gz
+# - mkdir -p lib
+# Here we use the decrypted service account credentials to authenticate the command line tool
+# - ./gcloud-sdk-install.sh
+# - gcloud version || true
+# - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+# Add gcloud to $PATH
+# - source $HOME/google-cloud-sdk/path.bash.inc
+# - gcloud version
+# - source $HOME/.bashrc
+
+#Configurando GCloud
+# - source $HOME/google-cloud-sdk/path.bash.inc
+# - gcloud components install kubectl
+# - gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
+# - gcloud config set project $PROJECT_ID
+# - gcloud config set compute/zone $ZONE
+# - ./gcloud-sdk-configure.sh
+
 after_success:
+  # - provider: script
+  #   script: chmod +x gcloud/deploy-prod.sh && gcloud/deploy-prod.sh
+  #   skip_cleanup: true
+  #   on:
+  #     branch: master
 # Preparacion el container y lo subimos al repositorio privado
-- ./image-prepare.sh $FULL_IMAGE_NAME
-- ./image-push.sh $FULL_IMAGE_NAME
+# - ./image-prepare.sh $FULL_IMAGE_NAME
+# - ./image-push.sh $FULL_IMAGE_NAME
 
 # Seleccionamos el cluster y creamos los nodos/pods
-- ./gcloud-select-cluster.sh $CLUSTER_NAME
-- ./k8s-run-mysql.sh ''
+# - ./gcloud-select-cluster.sh $CLUSTER_NAME
+# - ./k8s-run-mysql.sh ''
 # - chmod 777 dockerHubDeploy.sh
 # - ./dockerHubDeploy.sh
