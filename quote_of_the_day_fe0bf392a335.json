@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "snappy-sunset-198621",
+  "private_key_id": "fe0bf392a335a18739d90de45d1c0911d870508e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDemBuNPTOAxlkq\nlrNolnjL9baT9B4Hb264bqFjXJXRWQJbplDmp395tb8gmhKPrnHbARFdldXYa7G5\nR+vIwH/HMiLjSkS2GNP+3jjIXPOrspimnTGRw+pLT72mbRDIz+bZk5nR/jFoOX7V\na6JvxZVBxuJCSeJutUOJ+6In/NH0tIfiv7Rxh+JS+XBiSK0vIAfM5meoqSsgcNtG\nASD/8Hl/3NVIAQpzUdTIDmBITaaAAMYP+QVv/sRaWA8MQc4Fl7Q3jZJS1J5X9hwu\n+uIk79hzYi1IwqAohAuc94TfVqc/XQ0iVVCjxTv60CT2jseSOqmLuNr0Scd03GpJ\nkRhZ98kPAgMBAAECggEAAm2wZ0MSq8X+NQu921dA7CC7JDQWm8gochSq6BWbgNQy\nxWM0IMAVEPPdqPJlX3HsxhHl6Zp34cuS/c1+EgufmUG/xbEKvN3aej5cajsxYV8q\ncS7n2opDpRyymf04oKg8AYWtuO/IBDYUXym0dPm33ibYUxbRRJnvqbK4Gy2T8NJ+\nL0PL4jOdOWe1vCLn3EXebEg/qB1hfa459oI0DUInNHAt9DYu/DFeUaTahvy/HoER\ndxVoQ+Afyb1LQrmS8T1Si0t5fbLv78S67kOfGRMvkRBAPqLE4bu6g35jArS0Age9\nP8L7EKqHlXUrmIIeugN+fSEp/LhYGAlK2AYZDOHvuQKBgQD0EkfMHV16FX7sn+jU\nevpKR718VicAS8EZ0Ext2muNP6K7Z3ablG1ICyARCzqosu99B9w7fSgOkbCo3EvQ\n+emaF6qTC5rFOlWruWk5nT8mXKe71TzPHMPfkqpsBOxSVmAeVKiTgFOInT1BWOMp\nOrCVH37ygt7vcvO1b6wYOkYiNQKBgQDpeRzpZ1Ja/FapDPnOQavBwzf6loXjjvg1\nM8RAxA72EHhCjcipdG1/IMNIfiPIAUZJVdptHU5qpNIBkh+j9b6mQYk0kHiizHhy\nQGGNEcr2BwotGxTZGdqUJp9EJKHuP13cuNN4Ka0LznHuHTwu8Wsbt+W58GdUeEhY\nuJ4U5bImswKBgQCdRK44yu8xvGolpMCNMZTXijSByq2k1iteK8cjvesxf8CnCvr1\nMwXbtzd5ZAfvLiV9JjR1rKbEBIKVvCWqSW6J2RgTWhXnYjhTx8wS0M0hNfDq6nMd\nbYaVKFdh9SYlw/x5bsmVCcpJrDANTG5LYcLow/uz3joyhpqc3ZFBp0MLxQKBgQCJ\nM3wzCV3TTDDdHVv7wondzwwpfaVmydDA6w/sg4rLPXh+m/WM53elWqqIAmCim2Uj\nmYlH0A4SC5PCCo3/e12zNBYeRrwt53zsnzr0fL1KAW8QfLauskvJ/jxf/isO6DwP\nhqn3Fn6zznkTVijU6VhpLJOaxlTixeC2CqATZbxgkwKBgQDEkGGo+8HLgHOyDTyM\n2iN7oJXIgBBaxyYb0slo0bOMJguFWl+zM+5vh1P3NF9FaE6RM7BG5EWwb4ia5POR\nR3C0q64f8SRZ2x1p7rQ0Zfiq1Ro3bOSgi7vcqFB17RnpkQxsmYDJAb3mUqK55B9v\nRTXHWk27LGAA3tPOlnxnjvy6iQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "travis-69@snappy-sunset-198621.iam.gserviceaccount.com",
+  "client_id": "114180375041673538770",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/travis-69%40snappy-sunset-198621.iam.gserviceaccount.com"
+}
