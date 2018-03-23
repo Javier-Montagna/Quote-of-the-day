@@ -29,30 +29,28 @@ cache:
   directories:
     - "$HOME/google-cloud-sdk/"
 
-before_script:
+install:
 - npm install -g angular-cli
 - npm install -g karma
 - npm install
 - ng build
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+- source /home/travis/google-cloud-sdk/path.bash.inc
+- gcloud --quiet version
+- gcloud --quiet components update
+- gcloud --quiet components update kubectl
 
-script: 
-- karma start karma.conf.js --single-run
-
-before_deploy:
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
-  - source /home/travis/google-cloud-sdk/path.bash.inc
-  - gcloud --quiet version
-  - gcloud --quiet components update
-  - gcloud --quiet components update kubectl
-
-# before_install:
+before_script:
 # Conexion mediante private key
 # - openssl aes-256-cbc -K $encrypted_940145a3ff79_key -iv $encrypted_940145a3ff79_iv -in quote_of_the_day_fe0bf392a335.json.enc -out quote_of_the_day_fe0bf392a335.json -d
 
 # Preparando el ambiente para correr los tests con karma
-# - export CHROME_BIN=chromium-browser
-# - export DISPLAY=:99.0
-# - sh -e /etc/init.d/xvfb start
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+
+script: 
+- karma start karma.conf.js --single-run
 
 # Instalando gcloud para comunicarse con Google Cloud
 # - if [ ! -d ${HOME}/google-cloud-sdk ]; then
@@ -77,7 +75,7 @@ before_deploy:
 # - gcloud config set compute/zone $ZONE
 # - ./gcloud-sdk-configure.sh
 
-after_success:
+# after_success:
   # - provider: script
   #   script: chmod +x gcloud/deploy-prod.sh && gcloud/deploy-prod.sh
   #   skip_cleanup: true
