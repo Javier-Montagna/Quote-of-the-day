@@ -43,9 +43,9 @@ before_install:
 - gcloud version || true
 - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 # Add gcloud to $PATH
-- source /home/travis/google-cloud-sdk/path.bash.inc
+- source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud version
-- source /home/travis/.bashrc
+- source $HOME/.bashrc
 
 #Configurando GCloud
 - ./gcloud-sdk-configure.sh
