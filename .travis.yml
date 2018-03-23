@@ -57,10 +57,9 @@ script:
 - karma start karma.conf.js --single-run
 
 after_success:
-  before_deploy:
-  # Preparacion el container y lo subimos al repositorio privado
-  - docker build -f Dockerfile --no-cache=true -t 
-  - gcloud docker -- push $FULL_IMAGE_NAME
+# Preparacion el container y lo subimos al repositorio privado
+- docker build -f Dockerfile --no-cache=true -t $FULL_IMAGE_NAME
+- gcloud docker -- push $FULL_IMAGE_NAME
 
 # 
 # - ./image-prepare.sh 
