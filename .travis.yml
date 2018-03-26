@@ -17,6 +17,8 @@ env:
     - FULL_IMAGE_NAME=gcr.io/$PROJECT_ID/$IMAGE_NAME
     - GOOGLE_APPLICATION_CREDENTIALS="${PWD}/quote_of_the_day_fe0bf392a335.json"
     - CLUSTER_NAME="quote-of-the-day-prod"
+    - SA_NAME=quote-of-the-day-deployment
+    - SA_EMAIL=$SA_NAME@$snappy-sunset-198621.iam.gserviceaccount.com
 
 apt:
   sources:
@@ -39,16 +41,20 @@ install:
 #Google cloud SDK installation and configution
 - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash > /dev/null; fi
 - source /home/travis/google-cloud-sdk/path.bash.inc
-- gcloud --quiet version
 - gcloud --quiet components update
 - gcloud --quiet components update kubectl
 - openssl aes-256-cbc -K $encrypted_940145a3ff79_key -iv $encrypted_940145a3ff79_iv -in quote_of_the_day_fe0bf392a335.json.enc -out quote_of_the_day_fe0bf392a335.json -d
-- gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
-- export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS}"
 - gcloud config set project $PROJECT_ID
 - gcloud config set compute/zone $ZONE
-- gcloud  --quiet config set container/use_application_default_credentials true
-- gcloud  --quiet config set container/use_client_certificate true
+
+# Create a new GCP IAM service account.
+- gcloud iam service-accounts create $SA_NAME
+
+# Download a json key for that service account.
+- gcloud iam service-accounts keys create $GOOGLE_APPLICATION_CREDENTIALS --iam-account $SA_EMAIL
+
+# Give that service account the "Container Engine Developer" IAM role for your project.
+- gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:$SA_EMAIL --role roles/container.developer
 
 before_script:
 # Preparando el ambiente para correr los tests con karma
@@ -64,7 +70,11 @@ after_success:
 - docker build --no-cache=true -t $FULL_IMAGE_NAME .
 - gcloud docker -- push $FULL_IMAGE_NAME
 
-# Seleccionamos el cluster y creamos los nodos/pods
-- gcloud container clusters get-credentials $CLUSTER_NAME
+# Configure kubectl to point to your cluster.
+gcloud container clusters get-credentials $CLUSTER_NAME
+
+# Configure Application Default Credentials (what kubectl uses) to use the service account.
+export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
+
 - kubectl create -f quote-of-the-day-deployment.yaml
 - kubectl create -f quote-of-the-day-service.yaml
