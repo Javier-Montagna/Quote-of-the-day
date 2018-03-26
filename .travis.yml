@@ -44,6 +44,8 @@ install:
 - gcloud --quiet components update kubectl
 - openssl aes-256-cbc -K $encrypted_940145a3ff79_key -iv $encrypted_940145a3ff79_iv -in quote_of_the_day_fe0bf392a335.json.enc -out quote_of_the_day_fe0bf392a335.json -d
 - gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
+- gcloud auth application-default login
+- export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS}"
 - gcloud config set project $PROJECT_ID
 - gcloud config set compute/zone $ZONE
 - gcloud  --quiet config set container/use_application_default_credentials true
