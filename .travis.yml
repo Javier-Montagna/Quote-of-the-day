@@ -46,6 +46,8 @@ install:
 - gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
 - gcloud config set project $PROJECT_ID
 - gcloud config set compute/zone $ZONE
+- gcloud  --quiet config set container/use_application_default_credentials true
+- gcloud  --quiet config set container/use_client_certificate true
 
 before_script:
 # Preparando el ambiente para correr los tests con karma
@@ -63,5 +65,5 @@ after_success:
 
 # Seleccionamos el cluster y creamos los nodos/pods
 - gcloud container clusters get-credentials $CLUSTER_NAME
-- kubectl create -f quote-of-the-day-deployment.yml
-- kubectl create -f quote-of-the-day-service.yml
+- kubectl create -f quote-of-the-day-deployment.yaml
+- kubectl create -f quote-of-the-day-service.yaml
