@@ -7,8 +7,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 8080
-    nodePort: 30001
+  - port: 80
+    nodePort: 32000
     protocol: TCP
   selector:
     app: quote-of-the-day

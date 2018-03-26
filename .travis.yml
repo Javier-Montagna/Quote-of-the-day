@@ -74,5 +74,5 @@ after_success:
 - gcloud docker -- push $FULL_IMAGE_NAME
 
 # Instalando deployment y service.
-- kubectl create -f quote-of-the-day-service.yaml
-- kubectl create -f quote-of-the-day-deployment.yaml
+- kubectl get services quote-svc > /dev/null 2>&1; if [ $? -ne 0 ]; then echo “Service does not exist, creating."; kubectl create -f quote-of-the-day-service.yaml; else echo “Services al ready exist, skipping step”; fi
+- kubectl get deployment quote-deploy > /dev/null 2>&1; if [ $? -ne 0 ]; then echo “Deployment does not exist, creating."; kubectl create -f quote-of-the-day-deployment.yaml; else echo "Updating deployment”; kubectl apply -f quote-of-the-day-deployment.yaml; fi
