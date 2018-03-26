@@ -62,5 +62,6 @@ after_success:
 - gcloud docker -- push $FULL_IMAGE_NAME
 
 # Seleccionamos el cluster y creamos los nodos/pods
-# - ./gcloud-select-cluster.sh $CLUSTER_NAME
-# - ./k8s-run-mysql.sh ''
+- gcloud container clusters get-credentials $CLUSTER_NAME
+- kubectl create -f quote-of-the-day-deployment.yml
+- kubectl create -f quote-of-the-day-service.yml

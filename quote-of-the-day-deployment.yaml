@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: quote-deploy
+spec:
+  replicas: 3
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: quote-of-the-day
+    spec:
+      containers:
+      - name: quote-pod
+        image: gcr.io/snappy-sunset-198621/quote-of-the-day:latest
+        ports:
+        - containerPort: 8080
