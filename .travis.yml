@@ -39,6 +39,7 @@ install:
 #Google cloud SDK installation and configution
 - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash > /dev/null; fi
 - source /home/travis/google-cloud-sdk/path.bash.inc
+- gcloud version
 
 # Update Kubernetes
 - gcloud --quiet components update
@@ -58,18 +59,6 @@ install:
 - gcloud --quiet config set container/use_client_certificate true
 - gcloud --quiet container clusters get-credentials $CLUSTER_NAME
 
-# - gcloud config set project $PROJECT_ID
-# - gcloud config set compute/zone $ZONE
-
-# Create a new GCP IAM service account.
-# - gcloud iam service-accounts create $SA_NAME
-
-# Download a json key for that service account.
-# - gcloud iam service-accounts keys create $GOOGLE_APPLICATION_CREDENTIALS --iam-account $SA_EMAIL
-
-# Give that service account the "Container Engine Developer" IAM role for your project.
-# - gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:$SA_EMAIL --role roles/container.developer
-
 before_script:
 # Preparando el ambiente para correr los tests con karma
 - export CHROME_BIN=chromium-browser
@@ -84,11 +73,6 @@ after_success:
 - docker build --no-cache=true -t $FULL_IMAGE_NAME .
 - gcloud docker -- push $FULL_IMAGE_NAME
 
-# Configure kubectl to point to your cluster.
-# - gcloud container clusters get-credentials $CLUSTER_NAME
-
-# Configure Application Default Credentials (what kubectl uses) to use the service account.
-# - export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
-
+# Instalando deployment y service.
 - kubectl create -f quote-of-the-day-deployment.yaml
 - kubectl create -f quote-of-the-day-service.yaml
