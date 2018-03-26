@@ -71,10 +71,10 @@ after_success:
 - gcloud docker -- push $FULL_IMAGE_NAME
 
 # Configure kubectl to point to your cluster.
-gcloud container clusters get-credentials $CLUSTER_NAME
+- gcloud container clusters get-credentials $CLUSTER_NAME
 
 # Configure Application Default Credentials (what kubectl uses) to use the service account.
-export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
+- export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
 
 - kubectl create -f quote-of-the-day-deployment.yaml
 - kubectl create -f quote-of-the-day-service.yaml
