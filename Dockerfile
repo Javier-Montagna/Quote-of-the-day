@@ -8,5 +8,5 @@ RUN ng build --prod
 FROM nginx:alpine
 LABEL author="John Papa"
 COPY --from=angular-built /usr/src/app/dist /usr/share/nginx/html
-EXPOSE 80 443
+EXPOSE 8080
 CMD [ "nginx", "-g", "daemon off;" ]
