@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash
 kubectl get deployment quote-deploy > /dev/null 2>&1; 
 if [ $? -ne 0 ]; then 
   echo "Deployment does not exist, creating."; 

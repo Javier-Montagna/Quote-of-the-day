@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash
 kubectl get services quote-svc > /dev/null 2>&1;
 if [ $? -ne 0 ]; then 
   echo "Service does not exist, creating."; 
