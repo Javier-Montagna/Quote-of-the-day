@@ -21,6 +21,6 @@ spec:
         imagePullPolicy: Always
         env:
         - name: FORCING_REDEPLOY
-          value: 'Tue Mar 27 10:55:10 -03 2018'
+          value: 'SALT_TO_BE_REPLACE_DURING_DEPLOYMENT'
         ports:
         - containerPort: 80
