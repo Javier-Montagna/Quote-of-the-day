@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: quote-pod
-        image: gcr.io/snappy-sunset-198621/quote-of-the-day:latest
+        image: gcr.io/snappy-sunset-198621/quote-of-the-day
         ports:
         - containerPort: 80

@@ -5,5 +5,5 @@ if [ $? -ne 0 ]; then
   kubectl create -f quote-of-the-day-deployment.yaml; 
 else 
   echo "Updating deployment"; 
-  kubectl apply -f quote-of-the-day-deployment.yaml; 
+  kubectl apply -f quote-of-the-day-deployment.yaml --record; 
 fi
