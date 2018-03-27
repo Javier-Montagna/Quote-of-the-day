@@ -7,4 +7,6 @@ else
   echo "Updating deployment"; 
   sed -ie "s/SALT_TO_BE_REPLACE_DURING_DEPLOYMENT/$(date)/g" quote-of-the-day-deployment.yaml
   kubectl apply -f quote-of-the-day-deployment.yaml --record; 
+  rm quote-of-the-day-deployment.yaml
+  mv quote-of-the-day-deployment.yamle quote-of-the-day-deployment.yaml
 fi
