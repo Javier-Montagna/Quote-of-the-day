@@ -6,7 +6,7 @@ COPY . .
 RUN ng build --prod
 
 FROM nginx:alpine
-LABEL author="John Papa"
+LABEL author="Javier M"
 COPY --from=angular-built /usr/src/app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]
